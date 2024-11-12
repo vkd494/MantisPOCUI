@@ -1,0 +1,26 @@
+.container {
+	margin-top: 20px;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+.btn-custom {
+	background-color: #5a5;
+	color: white;
+	border: none;
+	padding: 8px 20px;
+}
+
+.btn-clear {
+	background-color: #ddd;
+	color: black;
+	border: none;
+	padding: 8px 20px;
+	margin-right: 10px;
+}
+
+.result-section {
+	margin-top: 20px;
+}

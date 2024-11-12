@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Mantis Integration</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<!--<style>
+		.container {
+			margin-top: 20px;
+		}
+
+		.form-group {
+			margin-bottom: 15px;
+		}
+
+		.btn-custom {
+			background-color: #5a5;
+			color: white;
+			border: none;
+			padding: 8px 20px;
+		}
+
+		.btn-clear {
+			background-color: #ddd;
+			color: black;
+			border: none;
+			padding: 8px 20px;
+			margin-right: 10px;
+		}
+
+		.result-section {
+			margin-top: 20px;
+		}
+	</style>-->
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="projectSelect">Project Name</label>
+					<select id="projectSelect" class="form-control" onchange="fetchMantisIds()">
+						<option value="">Select a Project</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="mantisIdSelect">Mantis ID</label>
+					<select id="mantisIdSelect" class="form-control" disabled>
+						<option value="">Select a Mantis ID</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="reasonInput">Reason</label>
+					<textarea id="reasonInput" class="form-control" rows="3" placeholder="Enter reason here"></textarea>
+				</div>
+			</div>
+
+			<div class="col-md-8">
+				<div class="form-group">
+					<label for="runQueryBox">Run Query</label>
+					<textarea id="runQueryBox" class="form-control" rows="8"
+						placeholder="Enter your query or code here"></textarea>
+				</div>
+				<div class="form-group text-right">
+					<button class="btn-clear" type="button" onclick="clearFields()">Clear</button>
+					<button class="btn-custom" type="button" onclick="runQuery()">Run Query</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="result-section">
+			<label>Result :</label>
+			<div id="resultDisplay" class="border p-2">{}</div>
+		</div>
+	</div>
+
+	<!--    <script>
+        // Fetch project list on page load
+        window.onload = function() {
+            fetchProjects();
+        };
+
+        // Fetch projects from API
+        function fetchProjects() {
+            fetch('http://localhost:8080/api/projects')
+                .then(response => response.json())
+                .then(data => {
+                    const projectSelect = document.getElementById('projectSelect');
+                    projectSelect.innerHTML = '<option value="">Select a Project</option>'; // Clear existing options
+                    data.forEach(project => {
+                        const option = document.createElement('option');
+                        option.value = project.id;
+                        option.text = project.name;
+                        projectSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching projects:', error);
+                    alert('Failed to load projects. Please try again later.');
+                });
+        }
+
+        // Fetch Mantis IDs based on selected project
+        function fetchMantisIds() {
+            const projectId = document.getElementById('projectSelect').value;
+            const mantisIdSelect = document.getElementById('mantisIdSelect');
+            mantisIdSelect.disabled = true; // Disable until Mantis IDs are fetched
+            mantisIdSelect.innerHTML = '<option value="">Select a Mantis ID</option>'; //
+
+            if (projectId) {
+                fetch(`http://localhost:8080/api/mantis/${projectId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(mantis => {
+                            const option = document.createElement('option');
+                            option.value = mantis.mantisId;
+                            option.text = mantis.mantisId;
+                            mantisIdSelect.appendChild(option);
+                        });
+                        mantisIdSelect.disabled = false; // Enable after options are added
+                    })
+                    .catch(error => {
+                        console.error('Error fetching Mantis IDs:', error);
+                        alert('Failed to load Mantis IDs. Please try again later.');
+                    });
+            }
+        }
+
+        // Clear form fields
+        function clearFields() {
+            document.getElementById('projectSelect').value = '';
+            document.getElementById('mantisIdSelect').innerHTML = '<option value="">Select a Mantis ID</option>';
+            document.getElementById('mantisIdSelect').disabled = true;
+            document.getElementById('reasonInput').value = '';
+            document.getElementById('runQueryBox').value = '';
+            document.getElementById('resultDisplay').innerHTML = '{}';
+        }
+
+        // Post query to API
+        function runQuery() {
+            const mantisId = document.getElementById('mantisIdSelect').value;
+            const reason = document.getElementById('reasonInput').value;
+            const runQuery = document.getElementById('runQueryBox').value;
+
+            if (mantisId && reason && runQuery) {
+                const payload = {
+                    mantisId: mantisId,
+                    reason: reason,
+                    runQuery: runQuery
+                };
+
+                fetch('http://localhost:8080/api/mantis-integration', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('resultDisplay').innerHTML = `{ "result": "${data}" }`;
+                })
+                .catch(error => {
+                    console.error('Error posting query:', error);
+                    alert('Failed to submit query. Please try again.');
+                });
+            } else {
+                alert('Please fill in all fields.');
+            }
+        }
+    </script>-->
+	<script th:src="@{/js/myScript.js}" defer></script>
+</body>
+
+</html>
